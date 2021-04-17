@@ -1,47 +1,36 @@
-import React, { useState, setResults, useEffect } from "react";
+import React from "react";
 import DayList from "components/daylist";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
-import axios from "axios";
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "components/helpers/selectors.js";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "components/helpers/selectors.js";
+import useApplicationData from "hooks/useApplicationData.js";
 
-export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {},
-  });
+export default function Application() {
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview,
+  } = useApplicationData();
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  const setDay = (day) => setState({ ...state, day });
-
-  useEffect(() => {
-    Promise.all([
-      axios.get(`/api/days`),
-      axios.get(`/api/appointments`),
-      axios.get(`/api/interviewers`),
-    ]).then((all) => {
-      const [days, appointments, interviewers] = all;
-
-      setState((prev) => ({
-        ...prev,
-        days: days.data,
-        appointments: appointments.data,
-        interviewers: interviewers.data,
-      }));
-    });
-  }, []);
-
   const interatedAppointments = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-    const interviewers= getInterviewersForDay(state, state.day)
-    return <Appointment 
-    key={appointment.id} 
-    {...appointment} 
-    interview={interview} 
-    interviewers={interviewers} 
-    />;
+    const interviewers = getInterviewersForDay(state, state.day);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        {...appointment}
+        interview={interview}
+        interviewers={interviewers}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
+      />
+    );
   });
 
   return (
