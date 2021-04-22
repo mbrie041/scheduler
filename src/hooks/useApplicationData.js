@@ -20,7 +20,7 @@ export default function useApplicationData() {
     const numberOfSpots = emptyAppointments.length;
     specificDay.spots = numberOfSpots;
     return newState;
-    }
+  };
 
   function bookInterview(id, interview) {
     const appointment = {

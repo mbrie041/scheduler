@@ -16,10 +16,9 @@ export default function useVisualMode(initial) {
       if (prev.length > 1) {
         return [...prev.slice(0, prev.length - 1)];
       } else {
-        return prev
+        return prev;
       }
     });
   };
-  console.log({ history });
   return { mode: history[history.length - 1], transition, back };
 }

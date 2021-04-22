@@ -83,7 +83,7 @@ export default function Appointment(props) {
           />
         )}
         {mode === SAVING && <Status message="Saving" />}
-        {mode === DELETE && <Delete message="Deleting"/>}
+        {mode === DELETE && <Delete message="Deleting" />}
         {mode === CONFIRM && (
           <Confirm
             message="Are you sure you want to delete?"
@@ -102,8 +102,10 @@ export default function Appointment(props) {
             onSave={save}
           />
         )}
-        {mode === ERROR_SAVE && <Error message="Error Saving" onClose={back}/>}
-        {mode === ERROR_DELETE && <Error message="Error Deleting"onClose={back}/>}
+        {mode === ERROR_SAVE && <Error message="Error Saving" onClose={back} />}
+        {mode === ERROR_DELETE && (
+          <Error message="Error Deleting" onClose={back} />
+        )}
       </article>
     </Fragment>
   );

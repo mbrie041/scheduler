@@ -6,7 +6,6 @@ import {
   cleanup,
   waitForElement,
   fireEvent,
-  prettyDOM,
   getByText,
   getAllByTestId,
   getByAltText,
@@ -16,7 +15,6 @@ import {
 } from "@testing-library/react";
 
 import Application from "components/Application";
-import Appointment from "components/Appointment";
 
 afterEach(cleanup);
 
@@ -113,12 +111,12 @@ describe("Application", () => {
       "appointment"
     ).find((appointment) => queryByText(appointment, "Archie Cohen"));
     fireEvent.click(queryByAltText(appointment, "Delete"));
-    expect(getByText(appointment, "Are you sure you want to delete?")).toBeInTheDocument();
+    expect(
+      getByText(appointment, "Are you sure you want to delete?")
+    ).toBeInTheDocument();
     fireEvent.click(queryByText(appointment, "Confirm"));
     expect(getByText(appointment, "Deleting")).toBeInTheDocument();
     await waitForElement(() => getByText(appointment, "Error Deleting"));
     expect(getByText(appointment, "Error Deleting")).toBeInTheDocument();
   });
-
-
 });
