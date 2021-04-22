@@ -60,7 +60,7 @@ export default function Appointment(props) {
 
   return (
     <Fragment>
-      <article className="appointment">
+      <article className="appointment" data-testid="appointment">
         <Header time={props.time} />
         {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
         {mode === SHOW && (
@@ -83,7 +83,7 @@ export default function Appointment(props) {
           />
         )}
         {mode === SAVING && <Status message="Saving" />}
-        {mode === DELETE && <Delete />}
+        {mode === DELETE && <Delete message="Deleting"/>}
         {mode === CONFIRM && (
           <Confirm
             message="Are you sure you want to delete?"
